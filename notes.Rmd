@@ -1,0 +1,50 @@
+
+
+
+## Getting a token
+
+```{r eval=FALSE}
+account_name <- "statprep.annie@gmail.com"
+# Authorize use of the google account
+where <- "raw"
+whence <- dir(system.file(where, package = "basket"), full.names = TRUE)
+whither <- tempdir()
+file.copy(whence, whither)
+googledrive::drive_auth(cache = whither, use_oob = TRUE,
+                        email = account_name)
+# Authorize use of the sheets themselves
+googlesheets4::gs4_auth(token = googledrive::drive_token())
+#unlink(whither)
+```
+
+
+Create a new sheet. The returned object will have the ID for the sheet.
+```{r eval = FALSE}
+new_sheet <- sheets_create("scared-rabbit4", sheets = head(mtcars))
+```
+
+Google sent me back this to give R to produce the token
+`4/0gEwuMNKJL2QUJ9tqJv9Bo40qNe3AaMZm9PY5cXTS9sdgRROqxy02WI`
+
+Key to the spreadsheet I created to try things out
+
+
+
+```{r eval=FALSE}
+library(googlesheets4)
+
+my_sheet_key <- "1w3fEld2rZlR_6FuzvkA-viOLBA5JdqD3xHl-LuLX3-Y"
+my_sheet <- googlesheets4::sheets_get(my_sheet_key) # get's metadata
+contents <- googlesheets4::read_sheet(my_sheet)
+this_event <- tibble::tribble(
+  ~ time, ~ content,
+  date(), "How now brown cow."
+)
+sheets_append(this_event, my_sheet)
+```
+
+
+
+# googledrive::drive_auth(cache=".secrets", use_oob = TRUE,
+#                         email = account_name)
+# password_df <- suppressMessages(googlesheets4::read_sheet(credentials))

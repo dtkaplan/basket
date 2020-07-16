@@ -4,7 +4,7 @@ check_valid <- function(a, b="one", c="two") {
   b <- trimws(b)
   c <- trimws(c)
   if (b == "q") {
-    cat("a =", a, "; b = ",b, "; c= ", c, "\n")
+    #cat("a =", a, "; b = ",b, "; c= ", c, "\n")
     new_a <- dir(system.file("raw", package = "basket"),
                  pattern = "@", full.names = TRUE)
     # Obscurify here.
